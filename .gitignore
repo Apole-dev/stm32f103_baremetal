@@ -58,3 +58,4 @@ dkms.conf
 #Build
 *build/
 
+compile_commands.json
