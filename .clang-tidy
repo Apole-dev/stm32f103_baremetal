@@ -1,0 +1,14 @@
+# This .clang-tidy file configures static analysis checks for the STM32 baremetal project.
+# It enables bug-prone, analyzer, performance, portability, and readability checks,
+# while disabling all others. The HeaderFilterRegex applies checks to all headers.
+# Adjust the Checks list as needed for your project's requirements.
+
+Checks: >
+  -*,
+  bugprone-*,
+  clang-analyzer-*,
+  performance-*,
+  portability-*,
+  readability-*
+
+HeaderFilterRegex: '.*'

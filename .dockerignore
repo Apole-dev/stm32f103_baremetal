@@ -1,0 +1,16 @@
+.git/
+.gitignore
+
+.vscode
+
+build/
+
+*.o
+*.d
+*.elf
+*.bin
+*.hex
+*.map
+
+*.log
+*.tmp
