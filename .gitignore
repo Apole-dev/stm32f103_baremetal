@@ -54,8 +54,10 @@ dkms.conf
 
 #Editor
 .vscode
+.zed
 
 #Build
 *build/
 
 compile_commands.json
+.cache

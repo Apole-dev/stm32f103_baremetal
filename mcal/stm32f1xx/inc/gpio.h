@@ -1,8 +1,8 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#include "stm32f103xb.h"
-#include "stm32f1xx.h"
+// Set the state of pin
+typedef enum { DISABLE = 0, ENABLE = 1 } SET;
 
 // Pin mode
 typedef enum {
@@ -40,18 +40,11 @@ typedef enum {
     PORT_E = 6,
 } GPIO_Port_t;
 
-// Main structure
-typedef struct {
-    GPIO_Port_t port;    // Which port? (ex: GPIOA, GPIOB)
-    uint8_t pin;         // Which pin? (ex: 5)
-    GPIO_Mode_t mode;    // Pin mode
-    GPIO_Speed_t speed;  // Output speed
-} GPIO_Config_t;
-
-Functional_State gpio_init(const GPIO_Config_t* config);
-Functional_State gpio_write(GPIO_Port_t port, uint8_t pin, bool state);
-Functional_State gpio_read(GPIO_Port_t port, uint8_t pin);
+Functional_State gpio_init(GPIO_Port_t port);
+Functional_State gpio_write(GPIO_Port_t port, uint8_t pin, bool on_off);
+Functional_State gpio_read(GPIO_Port_t port, uint8_t pin);  // TODO: Change the function type
 Functional_State gpio_clear(GPIO_Port_t port);
+Functional_State gpio_set_config(GPIO_Port_t port, GPIO_Mode_t mode, GPIO_Speed_t speed);
 
 /*These functions only works in bluepill boards */
 #ifdef BLUEPILL_F103
