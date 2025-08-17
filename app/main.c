@@ -1,8 +1,13 @@
 #include "gpio.h"
-
 #define EXAMPLE_PIN 13
 
 int main() {
-    gpio_init(PORT_A);
-    gpio_write(PORT_A, EXAMPLE_PIN, ENABLE);
+    gpio_handle_t myPort = {
+        .port = PORT_A,
+        .pin = EXAMPLE_PIN,
+        .mode = GPIO_MODE_OUTPUT_PP,
+        .speed = GPIO_SPEED_FAST,
+    };
+
+    gpio_init_pin(&myPort);
 }

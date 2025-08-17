@@ -1,8 +1,19 @@
+#ifndef GPIO_H
+#define GPIO_H
+
 #include <stdbool.h>
 #include <stdint.h>
 
-// Set the state of pin
-typedef enum { DISABLE = 0, ENABLE = 1 } SET;
+#include "stm32f103xb.h"
+
+// Functional state for error handling
+typedef enum {
+    OK,
+    INIT_FAIL,
+    WRITE_FAIL,
+    READ_FAIL,
+    CLEAR_FAIL,
+} Functional_State;
 
 // Pin mode
 typedef enum {
@@ -17,21 +28,12 @@ typedef enum {
 
 // Pin speed
 typedef enum {
-    GPIO_SPEED_LOW,     // STM32F1 : 10MHz
-    GPIO_SPEED_MEDIUM,  // STM32F1 : 2MHz
-    GPIO_SPEED_FAST     // STM32F1 : 50MHz
+    GPIO_SPEED_LOW,     // 10 MHz
+    GPIO_SPEED_MEDIUM,  // 2 MHz
+    GPIO_SPEED_FAST     // 50 MHz
 } GPIO_Speed_t;
 
-// Eror Status
-typedef enum {
-    OK,
-    INIT_FAIL,
-    WRITE_FAIL,
-    READ_FAIL,
-    CLEAR_FAIL,
-} Functional_State;
-
-// Port Number
+// Port selection
 typedef enum {
     PORT_A = 2,
     PORT_B = 3,
@@ -40,13 +42,26 @@ typedef enum {
     PORT_E = 6,
 } GPIO_Port_t;
 
-Functional_State gpio_init(GPIO_Port_t port);
-Functional_State gpio_write(GPIO_Port_t port, uint8_t pin, bool on_off);
-Functional_State gpio_read(GPIO_Port_t port, uint8_t pin);  // TODO: Change the function type
-Functional_State gpio_clear(GPIO_Port_t port);
-Functional_State gpio_set_config(GPIO_Port_t port, GPIO_Mode_t mode, GPIO_Speed_t speed);
+// Struct representing a GPIO pin
+typedef struct {
+    GPIO_Port_t port;
+    uint8_t pin;
+    GPIO_Mode_t mode;
+    GPIO_Speed_t speed;
+} gpio_handle_t;
 
+// Function prototypes
+Functional_State gpio_init_pin(gpio_handle_t *h);
+Functional_State gpio_write_pin(gpio_handle_t *h, bool on_off);
+Functional_State gpio_read_pin(gpio_handle_t *h, bool *state);
+Functional_State gpio_clear_port(GPIO_Port_t port);
+Functional_State gpio_set_af_mode(gpio_handle_t *h);
+Functional_State gpio_set_config(GPIO_Port_t port, uint8_t pin, GPIO_Mode_t mode, GPIO_Speed_t speed);
+
+// Internal helper
+GPIO_TypeDef *port_gpio(GPIO_Port_t port);
 /*These functions only works in bluepill boards */
+
 #ifdef BLUEPILL_F103
 
 #define LED_PORT GPIOC
@@ -54,5 +69,6 @@ Functional_State gpio_set_config(GPIO_Port_t port, GPIO_Mode_t mode, GPIO_Speed_
 
 // Test Functions
 void led_set();
-
 #endif
+
+#endif  // GPIO_H
