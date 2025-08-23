@@ -14,6 +14,8 @@ gpio_handle_t myPort ={
 gpio_init_pin(&myPort);
 
 ```
+
+## RCC Example
 ``` c
 
 //Example: Set Clock
@@ -23,4 +25,14 @@ rcc_set_config(PLL_HSE_MAX_72MHZ);
  * HSE_EXTERNAL_CLK_8MHZ,
  * PLL_HSI_MAX_64MHZ,
  * PLL_HSE_MAX_72MHZ,*/
+```
+
+##Systick Example
+
+``` c
+// Initialize SysTick
+systick_init();
+
+// Example Delay
+delay_ms(1000);
 ```
