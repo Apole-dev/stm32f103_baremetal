@@ -6,8 +6,11 @@
 
 #include "rcc.h"
 
+#include <stdint.h>
+
 #include "stm32f103xb.h"
 
+uint32_t current_clock_hz = 0;
 void rcc_set_config(SystemClock_t clock_source) {
     /*
       000 Zero wait state, if 0 < SYSCLK <= 24 MHz
@@ -22,6 +25,7 @@ void rcc_set_config(SystemClock_t clock_source) {
     switch (clock_source) {
         case HSI_INTERNAL_CLK_8MHZ:
             // Configure HSI as system clock
+            current_clock_hz = 8000000;
             RCC->CR |= RCC_CR_HSION;
             while (!(RCC->CR & RCC_CR_HSIRDY));
             RCC->CFGR &= ~RCC_CFGR_SW;
@@ -32,6 +36,7 @@ void rcc_set_config(SystemClock_t clock_source) {
             break;
         case HSE_EXTERNAL_CLK_8MHZ:
             // Configure HSE as system clock
+            current_clock_hz = 8000000;
             RCC->CR |= RCC_CR_HSEON;
             while (!(RCC->CR & RCC_CR_HSERDY));
             RCC->CFGR &= ~RCC_CFGR_SW;
@@ -42,6 +47,7 @@ void rcc_set_config(SystemClock_t clock_source) {
             break;
         case PLL_HSI_MAX_64MHZ:
             // Configure PLL as system clock
+            current_clock_hz = 64000000;
             RCC->CR |= RCC_CR_HSION;
             while (!(RCC->CR & RCC_CR_HSIRDY));
             RCC->CFGR &= ~RCC_CFGR_SW;
@@ -62,9 +68,11 @@ void rcc_set_config(SystemClock_t clock_source) {
             break;
         case PLL_HSE_MAX_72MHZ:
             // Configure PLL as system clock
+            current_clock_hz = 72000000;
             RCC->CR |= RCC_CR_HSEON;
             while (!(RCC->CR & RCC_CR_HSERDY));
             RCC->CFGR &= ~(RCC_CFGR_HPRE | RCC_CFGR_PPRE1 | RCC_CFGR_PPRE2);
+            // For detailed information look RM0008 page 50-52.
             RCC->CFGR |= RCC_CFGR_HPRE_DIV1;   // AHB -> 72MHz
             RCC->CFGR |= RCC_CFGR_PPRE1_DIV2;  // APB1 -> 36MHz
             RCC->CFGR |= RCC_CFGR_PPRE2_DIV1;  // APB2 -> 72MHz
