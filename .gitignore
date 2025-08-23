@@ -55,6 +55,8 @@ dkms.conf
 #Editor
 .vscode
 .zed
+.idea
+
 
 #Build
 *build/

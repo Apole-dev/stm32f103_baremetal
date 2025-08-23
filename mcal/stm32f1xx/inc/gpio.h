@@ -57,11 +57,12 @@ Functional_State gpio_read_pin(gpio_handle_t *h, bool *state);
 Functional_State gpio_clear_port(GPIO_Port_t port);
 Functional_State gpio_set_af_mode(gpio_handle_t *h);
 Functional_State gpio_set_config(GPIO_Port_t port, uint8_t pin, GPIO_Mode_t mode, GPIO_Speed_t speed);
+Functional_State gpio_test_port(GPIO_Port_t port);
 
 // Internal helper
 GPIO_TypeDef *port_gpio(GPIO_Port_t port);
-/*These functions only works in bluepill boards */
 
+/*These functions only works in bluepill boards */
 #ifdef BLUEPILL_F103
 
 #define LED_PORT GPIOC

@@ -1,10 +1,10 @@
 # STM32F103 Bare-Metal Development Environment
-
-A professional, modular, and reproducible bare-metal development environment for the STM32F103 (Blue Pill) microcontroller, built on Docker and a custom Makefile. This project is designed to provide a clean, portable, and CI/CD-ready foundation for robust embedded systems development, completely independent of vendor-provided HALs.
+Documentation section hi :)
 
 ## GPIO Init Example
 This example shows how to initialize a GPIO pin using the gpio_handle_t struct and gpio_init_pin() function in STM32F103 bare-metal.
 ``` c
+//Example: GPIO Initialization
 gpio_handle_t myPort ={
     .port  = PORT_A,
     .pin   = EXAMPLE_PIN,
@@ -13,4 +13,14 @@ gpio_handle_t myPort ={
 };
 gpio_init_pin(&myPort);
 
+```
+``` c
+
+//Example: Set Clock
+rcc_set_config(PLL_HSE_MAX_72MHZ);
+/* Config
+ * HSI_INTERNAL_CLK_8MHZ,
+ * HSE_EXTERNAL_CLK_8MHZ,
+ * PLL_HSI_MAX_64MHZ,
+ * PLL_HSE_MAX_72MHZ,*/
 ```

@@ -1,5 +1,12 @@
+/*
+ * Author: EREN
+ * Date: 25-08-17
+ * Description: GPIO function definitions,
+ */
 
 #include "gpio.h"
+
+#include "stm32f103xb.h"
 
 // Helper: return GPIO base address from enum
 GPIO_TypeDef *port_gpio(GPIO_Port_t port) {
@@ -110,6 +117,7 @@ Functional_State gpio_set_config(GPIO_Port_t port, uint8_t pin, GPIO_Mode_t mode
 // Write pin state
 Functional_State gpio_write_pin(gpio_handle_t *h, bool on_off) {
     if (!h || h->pin > 15) return WRITE_FAIL;
+
     GPIO_TypeDef *current_port = port_gpio(h->port);
     if (!current_port) return WRITE_FAIL;
 
@@ -140,7 +148,7 @@ Functional_State gpio_clear_port(GPIO_Port_t port) {
     return OK;
 }
 
-// Placeholder for alternate function (AF) remap
+// Set alternate function (AF) remap
 Functional_State gpio_set_af_mode(gpio_handle_t *h) {
     (void)h;
     return OK;

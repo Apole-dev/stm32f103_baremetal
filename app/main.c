@@ -1,13 +1,12 @@
 #include "gpio.h"
+#include "rcc.h"
 #define EXAMPLE_PIN 13
 
 int main() {
-    gpio_handle_t myPort = {
-        .port = PORT_A,
-        .pin = EXAMPLE_PIN,
-        .mode = GPIO_MODE_OUTPUT_PP,
-        .speed = GPIO_SPEED_FAST,
-    };
+    // Example: Set Clock
+    rcc_set_config(HSI_INTERNAL_CLK_8MHZ);
 
-    gpio_init_pin(&myPort);
+    // Example: Initialize GPIO pin
+    gpio_handle_t myPin = {.port = PORT_B, .pin = EXAMPLE_PIN, .mode = GPIO_MODE_AF_PP, .speed = GPIO_SPEED_FAST};
+    gpio_init_pin(&myPin);
 }
