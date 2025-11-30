@@ -1,12 +1,12 @@
 # STM32F103 Bare-Metal Development Environment
 
-A professional, modular, and reproducible bare-metal development environment for the STM32F103 (Blue Pill) microcontroller, built on Docker and a custom Makefile. This project is designed to provide a clean, portable, and CI/CD-ready foundation for robust embedded systems development, completely independent of vendor-provided HALs.
+A professional, modular, and reproducible bare-metal development environment for the STM32F103 (Blue Pill) microcontroller, built on Docker and a custom Makefile. This project is designed to provide a clean,architecture.
 
 ## Core Philosophy
 
 * **Bare-Metal Control:** Direct hardware register access for maximum performance, control, and understanding. No black boxes.
 * **Modularity:** A layered architecture (MCAL, BSP, Drivers, App) to ensure code is reusable, testable, and maintainable.
-* **Reproducibility:** A Docker-based toolchain guarantees that anyone can build the project with the exact same environment, eliminating "it works on my machine" issues.
+* **Reproducibility:** A Docker-based toolchain guarantees that anyone can build the project with the exact same environment.
 
 ## Features
 
@@ -34,10 +34,9 @@ cd stm32f103_baremetal
 This command uses the `Dockerfile` to build a local Docker image containing all the necessary tools. This only needs to be done once, or whenever the `Dockerfile` is updated.
 
 ```bash
-./build-env.sh
+./*****
 ```
-
-(If you do not have the `build-env.sh` script, use the `docker build ...` command directly.)
+You can use docker build command to build environment.
 
 ### 3\. Compile the Project
 
